@@ -11,7 +11,6 @@ module.exports = app => {
     app.set('port',  process.env.PORT || 3000 )
 
     // Middlewares
-    app.use( logger('dev') )
     app.use( multer({ dest: path.join( __dirname, '../public/upload/temp' ) }).single('image') )
     app.use( express.urlencoded( { extended: false } ) )
     app.use( express.json() )

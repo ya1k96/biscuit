@@ -1,0 +1,20 @@
+{{#if high}}
+<div class="card">
+     <div class="card-header bg-dark">
+        <h3 class="card-title text-white">
+            <i clas="fa fire"></i>
+            High
+    </div>
+    <div class="card-body">
+        <div class="row">
+            {{#each high}}
+            <div class="col-6">
+                <a href="/image/{{ uniqueId }}">
+                        <img class="w-100 h-75" src="/public/upload/{{ archivo }}" alt="">
+                    </a>
+            </div>
+            {{/each }}
+        </div>
+    </div>
+</div>
+{{/if }}

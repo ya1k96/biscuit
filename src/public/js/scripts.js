@@ -1,5 +1,6 @@
 $(document).ready( function () {
-    
+
+
     if( !localStorage.getItem('temp') ) {
         localStorage.setItem('temp', Date.now())
         localStorage.setItem('likes', JSON.stringify([]))
@@ -71,15 +72,16 @@ $(document).ready( function () {
     }
 
    })
+   
+   $('#form-comment').hide()
+   $('#btn-comment').click(function( e ) {
+        $('#form-comment').slideToggle()
+   })   
 
    formulario.submit( function( e ) {
         e.preventDefault()
-
-        let file = formulario[0][0]
-        let titulo = formulario[0][1]
-        let descripcion = formulario[0][2]
         let iconupload = button_upload.children()
-
+        let card_body = $('#card-add')
 
         button_upload.children().remove()
         button_upload.append( spinner )
@@ -90,14 +92,21 @@ $(document).ready( function () {
         processData: false,
         contentType: false,
         data: new FormData( this ),
-        success: function ( e ) {
+        success: function ( respuesta ) {
+            imagen_ok = respuesta.imagen
             button_upload.children().remove()
-            button_upload.append( iconupload.removeClass('fa fa-upload').addClass('fas fa-check') ),
+            button_upload.append( iconupload.removeClass('fa fa-upload').addClass('fas fa-check') )
+            uniqueId = imagen_ok.archivo.split('.')[0]
+            card = `<div class="col-md-4 bounceIn">
+                        <div class="card">
+                            <a href="/image/${ uniqueId }">
+                                <img class="w-100 h-100 img-thumbnail" src="/public/upload/${imagen_ok.archivo}" alt="">
+                            </a>
+                        </div>
+                    </div>`
+            card_body.prepend( card )
             setTimeout(function (){
                 iconupload.removeClass('fas fa-check').addClass('fa fa-upload')
-                formulario[0][0] = ''
-                formulario[0][1] = ''
-                formulario[0][2] = null
             },3000)
         }
     })  

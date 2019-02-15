@@ -6,10 +6,11 @@ const Comment = require('../models/comment')
 const md5 = require('md5')
 const {Schema} = require('mongoose')
 
+
 ctrl.index = async (req, res) => {
     let id = req.params.id
     let imagen = await Imagen.findOne({ archivo: { $regex: id } })
-    
+
     if( imagen ) {
         let comentarios = await Comment.find({ imagen_id: imagen._id})
         imagen.vistas++
@@ -20,7 +21,6 @@ ctrl.index = async (req, res) => {
     } else {
         res.redirect( '/404' )
     }
-
 }
 ctrl.create = async (req, res) => {
     let archivo = req.file
@@ -40,7 +40,7 @@ ctrl.create = async (req, res) => {
         })
 
         if ( await imagen.save() ) {
-            res.redirect('/image/' + name )
+            res.json({ imagen })
         }
 
      } else {
@@ -102,7 +102,7 @@ ctrl.delete = async (req, res) => {
             }
         }
         image.remove()
-        await fs.unlink( path.resolve( './src/public/upload' + image.archivo ) )
+        await fs.unlink( path.resolve( './src/public/upload/' + image.archivo ) )
         
     }
 }

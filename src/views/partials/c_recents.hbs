@@ -1,0 +1,25 @@
+{{#if comments }}
+<div class="card">
+     <div class="card-header bg-dark">
+        <h3 class="card-title text-white">
+            Comentarios
+    </div>
+    <div class="card-body">
+        <div class="row">            
+            <ul>
+                {{#each comments}}
+                <li >
+                        <a href="">
+                            <img src="https://gravatar.com/avatar/{{ gravatar }}?d=monsterid&s=45" alt="">
+                        </a>
+                        <blockquote>
+                        <p class="ml-2"> <span class="badge badge-info"> {{ nombre }} </span> <br>{{ comentario }} </p>
+                        <p class="blockquote-footer"> {{ time_ago fecha }} </p>    
+                        </blockquote>
+                </li>  
+                {{/each}}
+            </ul>            
+        </div>
+    </div>
+</div>
+{{/if }}
