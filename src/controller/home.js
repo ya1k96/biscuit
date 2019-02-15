@@ -7,8 +7,11 @@ ctrl.index = async (req, res) => {
     let high = await Image.find()
     .sort({ vistas: -1 })
     .limit(4)
-    let comments = await Commments.find().sort({ feecha: -1 })
-    console.log( comments )
+    
+    let comments = await Commments.find()
+    .sort({ feecha: -1 })
+    .limit(4)
+    
     res.render('index', { imagenes, high, comments })
 }
 
